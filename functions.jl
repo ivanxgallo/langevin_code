@@ -1,5 +1,4 @@
 # -------------- script of useful functions -------------- #
-# --------PORONGA
 ulam(xn) = 1 - 2*xn^2
 
 function random_uniform(N, a=-1., b=1.)
