@@ -43,7 +43,7 @@ for (k, v) in params
 end
 
 # creating moments CSV file
-mom_file = joinpath(directory, "momento2_$(k_eps).csv")
+mom_file = joinpath(directory, "momento2.csv")
 mom2 = open(mom_file, "w")
 
 # printing headers
