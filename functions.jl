@@ -19,7 +19,7 @@ function initial_parameters_manager(args)
         if directory != dirname(parameters_file)
             new_params_file = joinpath(directory, basename(parameters_file))
             if !isdir(directory)
-                mkdir(directory)
+                create_directories(directory)
             end
             if isfile(new_params_file)
                 rm(new_params_file)
@@ -41,4 +41,16 @@ function with_path_sep(dir::AbstractString)
         new_dir = joinpath(dir, "")
     end
     return new_dir
+end
+
+function create_directories(path::AbstractString)
+    parts = splitpath(path)
+
+    current_directory = ""
+    for part in parts
+        current_directory = joinpath(current_directory, part)
+        if !isdir(current_directory)
+            mkdir(current_directory)
+        end
+    end
 end
