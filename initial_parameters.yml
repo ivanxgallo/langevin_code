@@ -1,0 +1,9 @@
+number  : 100
+k_max   : 25
+exp_gt  : 2.
+F0      : 1.0
+c       : 2.
+save    : 10
+preci   : 0.01
+k_eps   : 25
+
