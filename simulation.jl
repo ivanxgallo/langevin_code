@@ -24,6 +24,7 @@ F0      = params["F0"]
 save    = params["save"]
 preci   = params["preci"]
 k_eps	= params["k_eps"]
+ts      = params["ts"]
 
 # computing other parameters
 gatau   = 10^(-exp_gt)
@@ -46,8 +47,12 @@ end
 mom_file = joinpath(directory, "momento2.csv")
 mom2 = open(mom_file, "w")
 
+vel_file = joinpath(directory, "vel_t.csv")
+vel_t = open(vel_file, "w")
+
 # printing headers
 println(mom2, "t\t", join(1:k_max, "\t"))
+println(vel_t, "t\t", join(1:k_max, "\t"))
 
 # Punto de partida
 V  = zeros(N, k_max)
@@ -65,6 +70,12 @@ while eps > preci
         end
     end
 
+    if ts
+        write_timeseries(vel_t, t+1, V[1, :])
+        @info "saving timeseries..."
+    end
+
+
     # writing the moments
     if (t + 1) % save == 0
         for k in 1:k_max
@@ -78,14 +89,15 @@ while eps > preci
         println("Saving progress...")
     end
 
-    println("iteraciones (t): ", t)
-    println("progreso relativo (t*gatau): ", t*gatau)
-    println("tolerancia: ", eps)
-    println("vel cuadratica med escala $(k_eps): ", v_2m[k_eps])
+    print_logs(t, gatau, eps, v_2m[k_eps], k_eps)
 
     global t += 1
 end
 
 # Cerramos archivos
 close(mom2)
+close(vel_t)
+
+# ending...
+@info "Finalizado..."
 

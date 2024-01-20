@@ -54,3 +54,16 @@ function create_directories(path::AbstractString)
         end
     end
 end
+
+function write_timeseries(writer, time, vec)
+    line = "$(time)\t"*join(vec, "\t")
+    println(writer, line)
+end
+
+
+function print_logs(t, gatau, eps, v, k_eps)
+    println("iteraciones (t): ", t)
+    println("progreso relativo (t*gatau): ", t*gatau)
+    println("tolerancia: ", eps)
+    println("vel cuadratica med escala $(k_eps): ", v)
+end
