@@ -46,22 +46,24 @@ end
 # creating moments CSV file
 mom_file = joinpath(directory, "momento2.csv")
 mom2 = open(mom_file, "w")
-
-vel_file = joinpath(directory, "vel_t.csv")
-vel_t = open(vel_file, "w")
-
-# printing headers
 println(mom2, "t\t", join(1:k_max, "\t"))
-println(vel_t, "t\t", join(1:k_max, "\t"))
+
+# creating timeseries CSV file
+if ts
+    vel_file = joinpath(directory, "vel_t.csv")
+    vel_t = open(vel_file, "w")
+    println(vel_t, "t\t", join(1:k_max, "\t"))
+end
 
 # Punto de partida
 V  = zeros(N, k_max)
 Vn = copy(V)
+Xn = random_uniform(N)
 
 # Integración
 while eps > preci
     global Vn = copy(V)
-    Xn = random_uniform(N)
+    global Xn = ulam.(Xn)
 
     for i in 1:N
         V[i, 1] = lambda*V[i, 1] + F0*sqrt(gatau)*Xn[i]
