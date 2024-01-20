@@ -98,7 +98,10 @@ end
 
 # Cerramos archivos
 close(mom2)
-close(vel_t)
+
+if ts
+    close(vel_t)
+end
 
 # ending...
 @info "Finalizado..."
