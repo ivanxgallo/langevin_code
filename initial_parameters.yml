@@ -6,4 +6,4 @@ c       : 2.
 save    : 10
 preci   : 0.01
 k_eps   : 25
-
+ts      : false
